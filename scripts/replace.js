@@ -7,10 +7,11 @@ const path = require('path')
 
 // Define filepaths
 const leafletOptions = path.join(__dirname, '..', 'src', 'leaflet_options.js')
+const generalOptions = path.join(__dirname, '..', 'src', 'index.js')
 const debug = path.join(__dirname, '..', 'debug', 'index.html')
 
 // Read & Replace options
-for (const filepath of [leafletOptions, debug]) {
+for (const filepath of [leafletOptions, debug, generalOptions]) {
   let options = fs.readFileSync(filepath, 'utf8')
 
   // Define Environment variables
@@ -21,6 +22,7 @@ for (const filepath of [leafletOptions, debug]) {
   const LANGUAGE = process.env.OSRM_LANGUAGE || 'en'
   const DEFAULT_LAYER = process.env.OSRM_DEFAULT_LAYER || 'streets'
   const MAPBOX_TOKEN = process.env.OSRM_MAPBOX_TOKEN || 'pk.eyJ1IjoibXNsZWUiLCJhIjoiclpiTWV5SSJ9.P_h8r37vD8jpIH1A6i1VRg'
+  const NOMINATIM_HOST = process.env.NOMINATIM_HOST || 'nominatim.openstreetmap.org'
 
   // Edit Leaflet Options
   if (BACKEND) options = options.replace(/http[s]?:\/\/router\.project-osrm\.org/, BACKEND)
@@ -29,6 +31,8 @@ for (const filepath of [leafletOptions, debug]) {
   if (LANGUAGE) options = options.replace(`language: 'en'`, `language: '${LANGUAGE}'`)
   if (DEFAULT_LAYER) options = options.replace('layer: streets', `layer: ${DEFAULT_LAYER}`)
   if (MAPBOX_TOKEN) options = options.replace(/mapboxToken = '.*'/, `mapboxToken = '${MAPBOX_TOKEN}'`)
+  if (NOMINATIM_HOST) options = options.replace(/nominatim\.openstreetmap\.org/, NOMINATIM_HOST)
+
   if (CENTER) {
     const latLng = CENTER.split(/[, ]+/)
     const lat = latLng[0];
