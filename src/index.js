@@ -94,7 +94,7 @@ function makeIcon(i, n) {
 }
 
 var plan = new ReversablePlan([], {
-  geocoder: Geocoder.nominatim({options: {
+  geocoder: Geocoder.nominatim({'options': {
     host: 'nominatim.openstreetmap.org'
   }}),
   routeWhileDragging: true,
