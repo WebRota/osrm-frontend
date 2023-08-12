@@ -31,7 +31,7 @@ for (const filepath of [leafletOptions, debug, generalOptions]) {
   if (LANGUAGE) options = options.replace(`language: 'en'`, `language: '${LANGUAGE}'`)
   if (DEFAULT_LAYER) options = options.replace('layer: streets', `layer: ${DEFAULT_LAYER}`)
   if (MAPBOX_TOKEN) options = options.replace(/mapboxToken = '.*'/, `mapboxToken = '${MAPBOX_TOKEN}'`)
-  if (NOMINATIM_HOST) options = options.replace(/nominatim\.openstreetmap\.org/, NOMINATIM_HOST)
+  if (NOMINATIM_HOST) options = options.replace('nominatim.openstreetmap.org', NOMINATIM_HOST)
 
   if (CENTER) {
     const latLng = CENTER.split(/[, ]+/)
